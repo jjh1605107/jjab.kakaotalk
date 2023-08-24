@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kakaotalk.mappers.UserMapper">
+
+    <select id="selectUserByEmail"
+            resultType="com.example.kakaotalk.entities.UserEntity">
+        select
+                `email` AS `email`,
+                `password` AS `password`,
+                `name` AS `name`,
+                `contact` AS `contact`,
+                `status` AS `status`,
+                `search_flag` AS `isSearch`,
+                `admin_flag` AS `isAdmin`,
+                `registered_at` AS `registeredAt`,
+                `birthdate` AS `birthdate`,
+                `lunar` AS `lunar`
+        from `react_springboot_crud`.`users`
+        where binary `email` = #{email}
+        limit 1
+    </select>
+
+    <select id="selectUserByContact"
+            resultType="com.example.kakaotalk.entities.UserEntity">
+        SELECT
+                `email` AS `email`,
+                `password` AS `password`,
+                `name` AS `name`,
+                `contact` AS `contact`,
+                `status` AS `status`,
+                `search_flag` AS `isSearch`,
+                `admin_flag` AS `isAdmin`,
+                `registered_at` AS `registeredAt`,
+                `birthdate` AS `birthdate`,
+                `lunar` AS `lunar`
+        from `react_springboot_crud`.`users`
+        WHERE BINARY `contact` = #{contact}
+        LIMIT 1
+    </select>
+
+    <insert id="insertRegisterContactCode"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.kakaotalk.entities.RegisterContactCodeEntity">
+        INSERT INTO `react_springboot_crud`.`register_contact_codes` (`contact`, `code`, `salt`, `created_at`, `expires_at`, `expired_flag`)
+        VALUES (#{contact},
+                #{code},
+                #{salt},
+                IFNULL(#{createdAt}, DEFAULT(`created_at`)),
+                #{expiresAt},
+                IFNULL(#{isExpired}, DEFAULT(`expired_flag`)))
+    </insert>
+
+    <select id="selectRegisterContactCodeByContactCodeSalt"
+            parameterType="com.example.kakaotalk.entities.RegisterContactCodeEntity"
+            resultType="com.example.kakaotalk.entities.RegisterContactCodeEntity">
+        SELECT `index`        AS `index`,
+               `contact`      AS `contact`,
+               `code`         AS `code`,
+               `salt`         AS `salt`,
+               `created_at`   AS `createdAt`,
+               `expires_at`   AS `expiresAt`,
+               `expired_flag` AS `isExpired`
+        FROM `react_springboot_crud`.`register_contact_codes`
+        WHERE BINARY `contact` = #{contact}
+          AND BINARY `code` = #{code}
+          AND BINARY `salt` = #{salt}
+        LIMIT 1
+    </select>
+
+    <update id="updateRegisterContactCode"
+            parameterType="com.example.kakaotalk.entities.RegisterContactCodeEntity">
+        UPDATE `react_springboot_crud`.`register_contact_codes`
+        SET `contact`      = #{contact},
+            `code`         = #{code},
+            `salt`         = #{salt},
+            `created_at`   = #{createdAt},
+            `expires_at`   = #{expiresAt},
+            `expired_flag` = #{isExpired}
+        WHERE BINARY `index` = #{index}
+        LIMIT 1
+    </update>
+
+    <select id="selectUserByName"
+            resultType="com.example.kakaotalk.entities.UserEntity">
+        SELECT
+            `email` AS `email`,
+            `password` AS `password`,
+            `name` AS `name`,
+            `contact` AS `contact`,
+            `status` AS `status`,
+            `search_flag` AS `isSearch`,
+            `admin_flag` AS `isAdmin`,
+            `registered_at` AS `registeredAt`,
+            `birthdate` AS `birthdate`,
+            `lunar` AS `lunar`
+        FROM `react_springboot_crud`.`users`
+        WHERE BINARY `name` = #{name}
+        LIMIT 1
+    </select>
+
+    <insert id="insertUser"
+            parameterType="com.example.kakaotalk.entities.UserEntity">
+        INSERT INTO `react_springboot_crud`.`users`
+            (`email`, `password`, `name`, `contact`, `status`, `search_flag`, `admin_flag`, `registered_at`, `birthdate`, `lunar`)
+            VALUE (#{email},
+                   #{password},
+                   #{name},
+                   #{contact},
+                   #{status},
+                   #{isSearch},
+                   #{isAdmin},
+                   IFNULL(#{registeredAt}, DEFAULT(`registered_at`)),
+                   #{birthdate},
+                   #{isLunar})
+    </insert>
+
+    <delete id="deleteUser"
+        parameterType="com.example.kakaotalk.entities.UserEntity">
+        DELETE FROM `react_springboot_crud`.`users`
+        WHERE `email` LIKE #{email} ESCAPE '#';
+    </delete>
+
+    <insert id="insertRegisterEmailCode"
+            parameterType="com.example.kakaotalk.entities.RegisterEmailCodeEntity">
+        INSERT INTO `react_springboot_crud`.`register_email_codes` (`email`, `code`, `salt`, `created_at`, `expires_at`, `expired_flag`)
+            VALUE (#{email},
+                   #{code},
+                   #{salt},
+                   IFNULL(#{createdAt}, DEFAULT(`created_at`)),
+                   #{expiresAt},
+                   #{isExpired})
+    </insert>
+
+    <select id="selectRegisterEmailCodeByEmailCodeSalt"
+            parameterType="com.example.kakaotalk.entities.RegisterEmailCodeEntity"
+            resultType="com.example.kakaotalk.entities.RegisterEmailCodeEntity">
+        SELECT `index`        AS `index`,
+               `email`        AS `email`,
+               `code`         AS `code`,
+               `salt`         AS `salt`,
+               `created_at`   AS `createdAt`,
+               `expires_at`   AS `expiresAt`,
+               `expired_flag` AS `isExpired`
+        FROM `react_springboot_crud`.`register_email_codes`
+        WHERE BINARY `email` = #{email}
+          AND BINARY `code` = #{code}
+          AND BINARY `salt` = #{salt}
+        LIMIT 1
+    </select>
+
+    <update id="updateRegisterEmailCode"
+            parameterType="com.example.kakaotalk.entities.RegisterEmailCodeEntity">
+        UPDATE `react_springboot_crud`.`register_email_codes`
+        SET `email`        = #{email},
+            `code`         = #{code},
+            `salt`         = #{salt},
+            `created_at`   = #{createdAt},
+            `expires_at`   = #{expiresAt},
+            `expired_flag` = #{isExpired}
+        WHERE BINARY `index` = #{index}
+        LIMIT 1
+    </update>
+
+    <update id="updateUser"
+            parameterType="com.example.kakaotalk.entities.UserEntity">
+        UPDATE `react_springboot_crud`.`users`
+        SET
+            `password`      = #{password},
+            `name`          = #{name},
+            `contact`       = #{contact},
+            `status`        = #{status},
+            `search_flag`   = #{isSearch},
+            `admin_flag`    = #{isAdmin},
+            `registered_at` = #{registeredAt},
+            `birthdate`     = #{birthdate},
+            `lunar`         = #{isLunar}
+        WHERE BINARY `email` = #{email}
+        LIMIT 1
+    </update>
+    <insert id="defaultProfile"
+        useGeneratedKeys="true"
+        keyColumn="index"
+        keyProperty="index">
+        INSERT INTO `react_springboot_crud`.`user_profile` (`contact`)
+        VALUES(#{contact});
+    </insert>
+
+    <select id="selectUserProfileByContact"
+        parameterType="com.example.kakaotalk.entities.UserProfileEntity"
+        resultType="com.example.kakaotalk.entities.UserProfileEntity">
+        SELECT contact as `contact`,
+
+               profile_main_img as `profileMainImg`,
+               profile_main_img_size as `profileMainImgSize`,
+               profile_main_img_content_type as `profileMainImgContentType`,
+
+               profile_background_img as `profileBackgroundImg`,
+               profile_background_img_size as `profileBackgroundImgSize`,
+               profile_background_content_type as `profileBackgroundImgContentType`,
+
+               profile_text as `profileText`,
+               profile_nickname as `profileNickname`
+        FROM `react_springboot_crud`.`user_profile`
+        WHERE BINARY `contact` = #{contact}
+    </select>
+
+    <update id="updateUserProfileText"
+            parameterType="com.example.kakaotalk.entities.UserProfileEntity">
+        UPDATE `react_springboot_crud`.`user_profile`
+        SET
+            `profile_text` = #{profileText},
+            `profile_nickname` = #{profileNickname}
+        WHERE BINARY `contact` = #{contact}
+        LIMIT 1;
+    </update>
+    <update id="updateUserProfileImage"
+            parameterType="com.example.kakaotalk.entities.UserProfileEntity">
+        UPDATE `react_springboot_crud`.`user_profile`
+        SET
+            `profile_main_img` = #{profileMainImg},
+            `profile_main_img_size` = #{profileMainImgSize},
+            `profile_main_img_content_type` = #{profileMainImgContentType},
+            `profile_background_img`= #{profileBackgroundImg},
+            `profile_background_img_size` = #{profileBackgroundImgSize},
+            `profile_background_content_type` = #{profileBackgroundImgContentType}
+        WHERE BINARY `contact` = #{contact}
+        LIMIT 1;
+    </update>
+    <select id="searchFriend"
+        parameterType="com.example.kakaotalk.entities.UserEntity"
+        resultType="com.example.kakaotalk.entities.UserEntity">
+        SELECT `email` AS `email`,
+               `password` AS `password`,
+               `name` AS `name`,
+               `contact` AS `contact`,
+               `status` AS `status`,
+               `search_flag` AS `isSearch`,
+               `admin_flag` AS `isAdmin`,
+               `registered_at` AS `registeredAt`,
+               `birthdate` AS `birthdate`,
+               `lunar` AS `isLunar`
+        FROM `react_springboot_crud`.`users`
+        WHERE BINARY (`contact` = #{contact} and `name` = #{name}) or (`email` = #{email})
+        LIMIT 1
+    </select>
+
+    <insert id="addFriend">
+        INSERT INTO `react_springboot_crud`.`user_friends_list`
+            (contact, contact_friend, user_friend_name_edit, status)
+        VALUES(#{userContact}, #{friendContact}, '', 'OKAY');
+    </insert>
+
+    <select id="selectFriendContactList"
+            resultType="com.example.kakaotalk.entities.UserFriendListEntity">
+        select
+            `contact` AS `contact`,
+            `contact_friend` AS `contactFriend`,
+            `user_friend_name_edit` AS `userFriendNameEdit`,
+            `status` AS `status`
+        from `react_springboot_crud`.`user_friends_list`
+        WHERE BINARY `contact` = #{contact} and `status` = 'OKAY'
+    </select>
+    <update id="updateFriendNickname"
+            parameterType="com.example.kakaotalk.entities.UserFriendListEntity">
+        UPDATE `react_springboot_crud`.`user_friends_list`
+        SET
+            `user_friend_name_edit` = #{userFriendNameEdit}
+        WHERE BINARY `contact` = #{contact} and `contact_friend` = #{contactFriend}
+        LIMIT 1;
+    </update>
+    <update id="toggleFriendStatus"
+            parameterType="map">
+        UPDATE `react_springboot_crud`.`user_friends_list`
+        SET `status` =
+            case
+                when `status` = 'OKAY' THEN 'BLOCK'
+                when `status` = 'BLOCK' THEN 'OKAY'
+                ELSE `status`
+            end
+        WHERE BINARY `contact` = #{contact} AND `contact_friend` = #{contactFriend}
+        LIMIT 1;
+    </update>
+
+    <delete id="deleteUserFriend">
+        delete from `react_springboot_crud`.`user_friends_list`
+        where `contact` = #{contact} and `contact_friend` = #{contactFriend} limit 1;
+    </delete>
+    <select id="selectFriendContactStatus"
+    resultType="com.example.kakaotalk.entities.UserFriendListEntity">
+        select `contact` as `contact`,
+               `contact_friend` as `contactFriend`,
+               `user_friend_name_edit` as `userFriendNameEdit`,
+               `status` as `status`
+        from `react_springboot_crud`.`user_friends_list`
+        where binary contact = #{contact} limit 1
+    </select>
+
+    <insert id="insertRecoverEmailCode"
+            parameterType="com.example.kakaotalk.entities.RecoverEmailCodeEntity">
+        INSERT INTO `react_springboot_crud`.`recover_email_codes` (`email`, `code`, `salt`, `created_at`, `expires_at`, `expired_flag`)
+            VALUE (#{email},
+                   #{code},
+                   #{salt},
+                   IFNULL(#{createdAt}, DEFAULT(`created_at`)),
+                   #{expiresAt},
+                   #{isExpired})
+    </insert>
+    <select id="selectRecoverEmailCodeByEmailCodeSalt"
+            parameterType="com.example.kakaotalk.entities.RecoverEmailCodeEntity"
+            resultType="com.example.kakaotalk.entities.RecoverEmailCodeEntity">
+        SELECT `index`        AS `index`,
+               `email`        AS `email`,
+               `code`         AS `code`,
+               `salt`         AS `salt`,
+               `created_at`   AS `createdAt`,
+               `expires_at`   AS `expiresAt`,
+               `expired_flag` AS `isExpired`
+        FROM `react_springboot_crud`.`recover_email_codes`
+        WHERE BINARY `email` = #{email}
+          AND BINARY `code` = #{code}
+          AND BINARY `salt` = #{salt}
+        LIMIT 1
+    </select>
+    <update id="updateRecoverEmailCode"
+            parameterType="com.example.kakaotalk.entities.RecoverEmailCodeEntity">
+        UPDATE `react_springboot_crud`.`recover_email_codes`
+        SET `email`        = #{email},
+            `code`         = #{code},
+            `salt`         = #{salt},
+            `created_at`   = #{createdAt},
+            `expires_at`   = #{expiresAt},
+            `expired_flag` = #{isExpired}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+    <delete id="deleteRecoverEmailCode"
+            parameterType="com.example.kakaotalk.entities.RecoverEmailCodeEntity">
+        DELETE
+        FROM `react_springboot_crud`.`recover_email_codes`
+        WHERE `index` = #{index}
+        LIMIT 1
+    </delete>
+    <insert id="insertRecoverContactCode"
+            useGeneratedKeys="true"
+            keyColumn="index"
+            keyProperty="index"
+            parameterType="com.example.kakaotalk.entities.RecoverContactCodeEntity">
+        INSERT INTO `react_springboot_crud`.`recover_contact_codes` (`contact`, `code`, `salt`, `created_at`, `expires_at`, `expired_flag`)
+        VALUES (#{contact},
+                #{code},
+                #{salt},
+                IFNULL(#{createdAt}, DEFAULT(`created_at`)),
+                #{expiresAt},
+                IFNULL(#{isExpired}, DEFAULT(`expired_flag`)))
+    </insert>
+    <select id="selectRecoverContactCodeByContactCodeSalt"
+            parameterType="com.example.kakaotalk.entities.RecoverContactCodeEntity"
+            resultType="com.example.kakaotalk.entities.RecoverContactCodeEntity">
+        SELECT `index`        AS `index`,
+               `contact`      AS `contact`,
+               `code`         AS `code`,
+               `salt`         AS `salt`,
+               `created_at`   AS `createdAt`,
+               `expires_at`   AS `expiresAt`,
+               `expired_flag` AS `isExpired`
+        FROM `react_springboot_crud`.`recover_contact_codes`
+        WHERE BINARY `contact` = #{contact}
+          AND BINARY `code` = #{code}
+          AND BINARY `salt` = #{salt}
+        LIMIT 1
+    </select>
+
+    <update id="updateRecoverContactCode"
+            parameterType="com.example.kakaotalk.entities.RecoverContactCodeEntity">
+        UPDATE `react_springboot_crud`.`recover_contact_codes`
+        SET `contact`      = #{contact},
+            `code`         = #{code},
+            `salt`         = #{salt},
+            `created_at`   = #{createdAt},
+            `expires_at`   = #{expiresAt},
+            `expired_flag` = #{isExpired}
+        WHERE `index` = #{index}
+        LIMIT 1
+    </update>
+</mapper>

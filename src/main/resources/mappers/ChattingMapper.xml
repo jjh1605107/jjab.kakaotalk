@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.kakaotalk.mappers.ChattingMapper">
+    <select id="selectChattingRoomsByUser"
+    resultType="com.example.kakaotalk.entities.UserFriendListEntity">
+        select `room_id` AS `roomId`,
+               `contact` AS `cpmtact`
+        from `react_springboot_crud`.`chatting_room_user_list`
+        WHERE BINARY contact = #{contact}
+    </select>
+    <insert id="createRoom"
+            parameterType="com.example.kakaotalk.entities.ChattingRoomEntity">
+        INSERT INTO `react_springboot_crud`.`chatting_room` (room_id,`chatting_room_name`, `chatting_room_users`) VALUES (#{roomId}, #{roomName}, 2) LIMIT 1;
+    </insert>
+    <insert id="joinRoom"
+            parameterType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
+        INSERT INTO `react_springboot_crud`.`chatting_room_user_list` (room_id, contact) VALUES (#{roomId}, #{contact}) LIMIT 1;
+    </insert>
+    <select id="selectRoomList"
+        resultType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
+        select `room_id` AS `roomId`,
+               `contact` AS `contact`
+        from `react_springboot_crud`.`chatting_room_user_list`
+        where binary contact = #{contact}
+    </select>
+    <select id="selectRoomUserList"
+            resultType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
+        select `room_id` as `roomId`,
+               `contact` AS `contact`,
+               `type` as `type`
+        from `react_springboot_crud`.`chatting_room_user_list`
+        where binary `room_id` = #{roomId}
+    </select>
+    <select id="selectRoomInfo"
+        resultType="com.example.kakaotalk.entities.ChattingRoomEntity">
+        select `room_id` AS `roomId`,
+               `chatting_room_name` AS `chattingRoomName`,
+               `chatting_room_main_image` AS `chattingRoomMainImage`,
+               `chatting_room_users` AS `chattingRoomUsers`,
+               `chatting_room_last_message` as 'chattingRoomLastMessage',
+               `chatting_room_last_message_time` as 'chattingRoomLastMessageTime'
+        from `react_springboot_crud`.`chatting_room`
+        where binary `room_id` = #{roomId} limit 1
+    </select>
+
+    <select id="selectMyChattingRoomList"
+            parameterType="com.example.kakaotalk.model.ChatMessage"
+        resultType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
+        select `contact` as `contact`,
+               `room_id` as `roomId`,
+               `room_join_time` as `roomJoinTimeAs`
+        from `react_springboot_crud`.`chatting_room_user_list`
+        where binary `contact` = #{check} and `room_id` = #{roomId}
+        limit 1
+    </select>
+
+
+
+    <insert id="insertChatMessage"
+            useGeneratedKeys="true"
+            keyProperty="id"
+            keyColumn="id"
+            parameterType="com.example.kakaotalk.model.ChatMessage">
+        INSERT INTO `react_springboot_crud`.`chatting_messages`(`sender`, `room_id`, `content`, `sent_at`, `is_read`, `unread_count`, `type`, `image`)
+        VALUES (#{sender}, #{roomId}, #{content}, #{sentAt}, #{isRead}, #{unreadCount}, #{type}, #{image});
+    </insert>
+    <insert id="insertChatMessageCheck"
+            parameterType="com.example.kakaotalk.model.ChatMessage">
+        INSERT INTO `react_springboot_crud`.`chatting_messages_check`
+            (chatting_messages_content_id, room_id, contact, is_read)
+        VALUES (#{id}, #{roomId},#{contact}, #{isRead})
+    </insert>
+
+
+
+    <update id="updateMessageReadStatus"
+            parameterType="com.example.kakaotalk.model.ChatMessage">
+        UPDATE `react_springboot_crud`.`chatting_messages`
+        SET `is_read` = 1
+        WHERE binary `id` = #{messageId}
+    </update>
+
+
+
+    <select id="getMessageById"
+            resultType="com.example.kakaotalk.model.ChatMessage"
+            parameterType="java.lang.String">
+        SELECT `type` as `type`,
+               `sender` AS `sender`,
+               `room_id` AS `roomId`,
+               `content` AS `content`,
+               `sent_at` AS `sentAt`,
+               `is_read` AS `isRead`,
+               `unread_count` AS `unreadCount`
+        FROM `react_springboot_crud`.`chatting_messages`
+        WHERE binary `id` = #{messageId}
+    </select>
+    <select id="getAllMessagesByRoomId"
+            resultType="com.example.kakaotalk.model.ChatMessage"
+            parameterType="java.lang.String">
+        SELECT * FROM `react_springboot_crud`.`chatting_messages` WHERE binary `room_id` = #{roomId}
+    </select>
+
+
+    <select id="selectRoomJoinList"
+        parameterType="com.example.kakaotalk.entities.ChattingRoomUserListEntity"
+        resultType="java.lang.String">
+        select `contact` AS `contact`
+        from `react_springboot_crud`.`chatting_room_user_list`
+        where binary `room_id` = #{roomId}
+    </select>
+
+    <select id="selectUserProfileByContact"
+            parameterType="com.example.kakaotalk.entities.UserProfileEntity"
+            resultType="com.example.kakaotalk.entities.UserProfileEntity">
+        SELECT
+            `contact` AS `contact`,
+            `profile_main_img` AS `profileMainImg`,
+            `profile_background_img` AS `profileBackgroundImg`,
+            `profile_text` AS `profileText`,
+            `profile_nickname` AS `profileNickname`
+        FROM `react_springboot_crud`.`user_profile`
+        WHERE BINARY `contact` = #{contact}
+    </select>
+
+    <select id="fetchChatMessages"
+            resultType="com.example.kakaotalk.model.ChatMessage"
+            parameterType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
+        <![CDATA[
+        SELECT `id` as `id`,
+               `sender` as `sender`,
+               `room_id` as `roomId`,
+               `content` as `content`,
+               `sent_at` as `sentAt`,
+               `is_read` as `isRead`,
+               `unread_count` as `unreadCount`,
+               `type` as `type`,
+               `image` as `image`
+        FROM `react_springboot_crud`.`chatting_messages`
+        WHERE room_id = #{roomId}
+          AND #{roomJoinTimeAs} <= TIMESTAMP(sent_at)
+        ORDER BY `sent_at` ASC;
+        ]]>
+    </select>
+
+    <insert id="insertAddFriendRoom">
+        insert into `react_springboot_crud`.`chatting_room_user_list`
+            (contact, room_id) VALUES (#{contactFriend}, #{roomId});
+    </insert>
+    <update id="updateInsertAddFriendRoom">
+        update `react_springboot_crud`.`chatting_room`
+        set chatting_room_users = chatting_room_users+1
+        where binary `room_id` = #{roomId} and `chatting_room_users`!=0
+    </update>
+    <update id="updateInsertExitFriendRoom">
+        update `react_springboot_crud`.`chatting_room`
+        set chatting_room_users = chatting_room_users-1
+        where binary`room_id` = #{roomId} and `chatting_room_users`!=0
+    </update>
+    <delete id="deleteExitRoom">
+        delete from `react_springboot_crud`.`chatting_room_user_list`
+        where binary`contact` = #{contact} and room_id = #{roomId}
+    </delete>
+    <delete id="deleteUserZeroRoom">
+        delete from `react_springboot_crud`.`chatting_room`
+        where binary `room_id` = #{roomId}
+    </delete>
+    <update id="updateTypeConnect">
+        update `react_springboot_crud`.`chatting_room_user_list`
+        set `type` = 'CONNECT'
+        where `contact` = #{contact} and `room_id` = #{roomId}
+    </update>
+    <update id="updateTypeDisconnect">
+        update `react_springboot_crud`.`chatting_room_user_list`
+        set `type` = 'DISCONNECT'
+        where binary `contact` = #{contact} and `room_id` = #{roomId}
+    </update>
+    <update id="updateChattingRoomLastMessage">
+        update `react_springboot_crud`.`chatting_room`
+        set `chatting_room_last_message` = #{content},
+            `chatting_room_last_message_time` = #{sentAt}
+        where binary `room_id` = #{roomId} limit 1;
+    </update>
+    <update id="updateChatMessageCheck">
+        update `react_springboot_crud`.`chatting_messages_check`
+        set `is_read` = 1
+        where chatting_messages_content_id = #{id} and contact = #{contact} and room_id = #{roomId} and `is_read`=0 limit 1;
+    </update>
+    <update id="updateChatMessage">
+        update `react_springboot_crud`.`chatting_messages`
+        set unread_count = unread_count-1
+        where unread_count > 0 and id = #{id}
+    </update>
+    <update id="fetchChatMessageCheck"
+        parameterType="com.example.kakaotalk.model.ChatMessage">
+        update `react_springboot_crud`.`chatting_messages`
+        set unread_count = unread_count-1
+        where unread_count > 0 and `id` in ( select `chatting_messages_content_id` as 'id'
+                                             from `react_springboot_crud`.`chatting_messages_check`
+                                             where chatting_messages_check.is_read = 0 and contact = #{check} and chatting_messages_check.room_id=#{roomId})
+    </update>
+
+    <update id="updateRoomInfo">
+        UPDATE `react_springboot_crud`.`chatting_room`
+        SET `chatting_room_name` = #{roomName}
+        WHERE `room_id` = #{roomId}
+          AND EXISTS (SELECT * FROM `react_springboot_crud`.`chatting_room_user_list`
+                      WHERE `room_id` = #{roomId} AND contact = #{contact})
+        limit 1;
+    </update>
+</mapper>

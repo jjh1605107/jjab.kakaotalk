@@ -1,0 +1,442 @@
+.chatting_box{
+    height: 84px;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 13px 0 13px;
+}
+.chatting_center{
+    width: 100%;
+    margin: 10px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.chatting_center > p{
+    font-size: 40px;
+    font-weight: bold;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.chatting_add_user{
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0 10px 0 0;
+    width: 50px;
+    height: 50px;
+    background-size: 50px 50px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/window/icons8-hamburger.png");
+}
+.chatting_add_menu{
+    display: none;
+}
+.chatting_add_menu.on{
+    user-select: none;
+    cursor: auto;
+    box-sizing: border-box;
+    border: 1px solid #191919;
+    background-color: #e5e5e5;
+    position: absolute;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    font-size: 20px;
+}
+.chatting_add_menu.on > *{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    height: 30px;
+}
+.chatting_add_menu.on > *:hover{
+    background-color: #8E8E8E;
+}
+.chatting_add_window{
+    display: none;
+}
+.chatting_add_window.on{
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 99999;
+    width: 200px;
+    max-height: calc(33px + 64px + 64px + 66px);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e5e5e5;
+}
+.chatting_add_window.on > *:nth-child(1){
+    width: 100%;
+    height: 40px;
+    overflow-y: hidden;
+}
+.chatting_add_window.on > *:nth-child(1) > input{
+    width: 100%;
+    border: none;
+    background-color: inherit;
+    font-size: 25px;
+    text-align: center;
+}
+.chatting_add_window.on > div{
+    width: 100%;
+    overflow-y: auto;
+}
+.chatting_add_window.on > div > *:nth-child(n+2){
+    width: 100%;
+    display: flex;
+    align-self: flex-start;
+    justify-content: space-between;
+}
+.chatting_user_list{
+    display: none;
+}
+.chatting_user_list.on{
+    user-select: none;
+    cursor: auto;
+    box-sizing: border-box;
+    border: 1px solid #191919;
+    background-color: #e5e5e5;
+    position: absolute;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    justify-content: center;
+    top: 110px;
+    left: 0;
+    width: 200px;
+    font-size: 20px;
+    z-index: 99999;
+}
+.chatting_user_list.on > *:nth-child(1){
+    width: 100%;
+    text-align: center;
+    color: #8E8E8E;
+    font-weight: bold;
+}
+.chatting_state{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+.friend_profile_info > *{
+    margin: 0 0 0 10px;
+}
+.chatting_title{
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    justify-self: flex-start;
+}
+.chatting_title > p{
+    height: 25px;
+    font-size: 15px;
+    font-weight: 200;
+    padding: 0 0 0 5px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+.chatting_last_dialogue{
+    font-weight: 200;
+    font-size: 30px;
+}
+.chatting_user_length{
+    cursor: pointer;
+    padding-left: 22px;
+    width: 20px;
+    height: 20px;
+    background-position: left;
+    background-image: url("../../../../public/img/main/kakao/icons8-profile.png");
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+}
+.chatting_img{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+    background-size: 70px 70px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/kakao/default_profile_img.png");
+}
+.chatting_img > img{
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+}
+@media (max-width: 600px) {
+    .chatting_box {
+        height: 50px;
+        margin: 25px 13px 25px 13px;
+    }
+    .chatting_title{
+        font-size: 20px;
+    }
+    .chatting_last_dialogue {
+        font-size: 15px;
+    }
+    .chatting_img{
+        width: 50px;
+        height: 50px;
+        background-size: 50px 50px;
+    }
+    .chatting_last_time{
+        font-size: 15px;
+    }
+}
+
+.chatting_state2{
+    font-size: 20px;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.chatting_state2 > *:nth-child(2){
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px 0 0 0 ;
+    box-sizing: border-box;
+    border-radius: 25px;
+    background-color: orangered;
+    padding: 5px;
+    font-size: 15px;
+    color: white;
+}
+
+.chatting_box2{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#chat_join{
+    z-index: 999999;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #BACEE0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+@media (max-height: 80vh) {
+    #chat_join{
+        height: 100vh;
+    }
+}
+.chat_join_header{
+    background-color: #BACEE0;
+    width: 100vw;
+    height: 150px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.chat_join_header_menu{
+    width: 100vw;
+    height: 20px;
+}
+.chat_join_exit{;
+    margin:  5px auto;
+    width: 20px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-size: 20px 15px;
+    background-image: url("../../../../public/img/main/window/icons8-black-exit.png");
+}
+.chat_join_center{
+    margin: 0 0 10px 0;
+    width: 100%;
+    height: 80%;
+
+    overflow-y:auto;
+
+    display: flex;
+    align-self: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.chat_join_footer{
+    width: 100vw;
+    background-color: whitesmoke;
+    resize: none;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.message_box{
+    height: 70px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.message_box > p{
+    cursor: pointer;
+    width: 10vw;
+    height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.message_box > textarea{
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: whitesmoke;
+    font-size: 23px;
+    width: 90vw;
+    height: inherit;
+    overflow: hidden;
+}
+.emoji_box{
+    display: none;
+}
+.emoji_box.on{
+    display: block;
+    background-color: whitesmoke;
+    width: 100vw;
+    height: 200px;
+}
+.emoji{
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-gap: 10px;
+    width: 100vw;
+    height: 130px;
+}
+.emoji > *{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-radius: 20px;
+}
+.emoji > *:hover{
+    background-color: #8E8E8E;
+}
+.emoji_list{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 50px;
+}
+.emoji_list > .emoji_item{
+    background-color: inherit;
+    width: 50px;
+    height: 50px;
+    margin: 0 5px 0 5px;
+    border-radius: 20px;
+}
+.emoji_list > .emoji_item:hover{
+    background-color: #8E8E8E;
+}
+.my_message{
+    padding: 5px 10px 5px 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.my_message_state{
+    margin: 0 10px 0 0;
+    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.my_message_box{
+    font-size: 30px;
+    background-color: white;
+    border-radius: 15px;
+    margin: 0 10px 0 0;
+    padding: 10px;
+}
+.your_message{
+    padding: 5px 0 5px 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+.your_image{
+    margin: 0 15px 0 0;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+    background-size: 70px 70px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/kakao/default_profile_img.png");
+}
+.your_image > img{
+    width: 70px;
+    height: 70px;
+    border-radius: 30px;
+}
+.your_message_box{
+    display: flex;
+    flex-direction: column;
+}
+.your_message_box > *:nth-child(1){
+    font-size: 20px;
+}
+.your_message_box > *:nth-child(2){
+    font-size: 30px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 10px;
+    margin: 0 10px 0 0 ;
+}
+.your_message_box > img{
+    width: 100px;
+    height: 150px;
+}
+
+.status_box{
+    text-align: center;
+    margin: 10px 0 10px 0;
+}
+.status_box > span{
+    color: #e5e5e5;
+    background-color: #3498db;
+    padding: 5px;
+    border-radius: 25px;
+}

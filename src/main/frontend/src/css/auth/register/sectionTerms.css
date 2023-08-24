@@ -1,0 +1,91 @@
+#section-terms{
+    position: relative;
+    max-width: 580px;
+    min-height: 520px;
+    margin: 40px auto;
+    padding: 58px 69px 139px;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.active_two > *{
+    user-select: none;
+    pointer-events: none;
+    width: 380px;
+}
+.active_two > div:nth-child(1){
+    font-size: 24px;
+    padding: 0 0 20px;
+    align-items: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+.active_two > div:not(:nth-child(1)){
+    padding:20px 0 20px 0;
+}
+
+
+.item_two{
+    width: 380px;
+    display: flex;
+    flex-direction: row;
+}
+.item_two > *:nth-child(1){
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    margin-left: -25px;
+    margin-top: 2px;
+}
+.item_two > *:nth-child(2){
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+}
+
+.item_two > *:nth-child(2) > *:nth-child(1){
+    font-size: 15px;
+    font-weight: bold;
+
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.item_two > *:nth-child(2) > *:nth-child(2) {
+    margin-top: 3px;
+    font-size: 11px;
+}
+
+.item_box:not(:nth-child(2)){
+    border-bottom: none;
+    height: 1px;
+}
+
+.submit_btn{
+    color: rgba(0,0,0,30%);
+    user-select: none;
+    border-radius: 5px;
+    margin-top: 450px;
+    position: absolute;
+    width: 430px;
+    background-color: rgba(0,0,0,10%);
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.submit_btn.selected{
+    pointer-events: all;
+    cursor: pointer;
+    background-color: #FEE500;
+    color: black;
+}
+
+.active_two:last-child{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

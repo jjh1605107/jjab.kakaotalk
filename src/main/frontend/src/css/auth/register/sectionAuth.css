@@ -1,0 +1,119 @@
+#section-auth{
+    position: relative;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    box-sizing: border-box;
+    margin: 40px auto;
+}
+
+#auth-container{
+    padding: 55px 69px 55px 69px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 24px;
+}
+.text{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #191919;
+    line-height: 34px;
+    margin-bottom: 47px;
+}
+#auth-container>div>.item{
+    display: none;
+    width: 440px;
+    height: 47px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.navi_bar{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#auth-container>div>.item > input{
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    height: 45px;
+    padding: 10px 0 8px;
+    border: 0;
+    font-size: 18px;
+    line-height: 25px;
+    color: #191919;
+    letter-spacing: 0;
+    box-sizing: border-box;
+    outline: 0 none;
+    caret-color: #191919;
+    opacity: 1;
+}
+#auth-container>div>.item.on{
+    display: flex;
+}
+
+#auth-container>div>.item > button{
+    display: inline-block;
+    width: 75px;
+    height: 32px;
+    padding: 0 13px;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 32px;
+    font-size: 14px;
+    line-height: 29px;
+    color: #191919;
+    vertical-align: top;
+    pointer-events: all;
+    cursor: pointer;
+}
+#auth-container>div>.item > button:hover{
+    background-color: rgba(0,0,0,.1);
+}
+#auth-container>div>.item:nth-of-type(2){
+    border-bottom: 2px solid #ccc;
+}
+#auth-container>div>.item:nth-of-type(3){
+    border-bottom: 2px solid red;
+    color: red;
+}
+.warning{
+    padding: 3px 0 3px 0;
+    display: none;
+    color: red;
+    font-size: 3px;
+}
+
+.warning.on{
+    display: block;
+}
+
+.next_btn{
+    font-weight: bold;
+    font-size: 18px;
+    user-select: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0,0,0,10%);
+    margin-top: 50px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.next_btn.clear{
+    pointer-events: all;
+    cursor: pointer;
+    background-color: #FEE500;
+}
+
+.item > span{
+    padding-right: 3px;
+}

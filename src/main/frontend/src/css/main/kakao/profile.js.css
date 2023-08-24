@@ -1,0 +1,755 @@
+.profile_container{
+    overflow: auto;
+}
+.border_container{
+    width: calc(100vw - 30px);
+    height: 0;
+    margin: 0 15px 0 15px;
+    border-top: 1px solid #8E8E8E;
+}
+
+.warning_box{
+    height: 42px;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.warning_banner{
+    font-size: 20px;
+    height: 30px;
+    padding: 6px 13px 6px 13px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.warning_banner > p{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 23px;
+}
+.warning_banner > p:nth-child(1){
+    background-color: #FEE500;
+    width: 100px;
+    height: 28px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.profile_box{
+    padding: 6px 13px 6px 13px;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile_state{
+    width: calc(100vw - 200px);
+    font-size: 27px;
+    font-weight: bold;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.profile_img{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10px;
+    background-size: 80px 80px;
+    background-image: url("../../../../public/img/main/kakao/default_profile_img.png");
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(0,0,0,10%);
+    border-radius: 25px;
+    box-sizing: border-box;
+}
+.profile_img picture > img{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 999;
+    width: 80px;
+    height: 80px;
+    border-radius: 25px;
+}
+.profile_text_edit{
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    user-select: none;
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 300;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 50px;
+}
+
+.profile_center_header{
+    height: 35px;
+    box-sizing: border-box;
+    padding: 6px 13px 6px 13px;
+    font-size: 17px;
+    user-select: none;
+}
+.friend_profile_box{
+    box-sizing: border-box;
+    height: 64px;
+    padding: 6px 13px 6px 13px;
+}
+.friend_profile_state{
+    display: flex;
+    flex-direction: row;
+}
+
+.friend_profile_img{
+    margin-right: 10px;
+    background-size: 50px 50px;
+    background-image: url("../../../../public/img/main/kakao/default_profile_img.png");
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(0,0,0,10%);
+    border-radius: 25px;
+}
+
+.friend_profile_img > picture > img{
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(0,0,0,10%);
+    border-radius: 25px;
+}
+.profile_text_edit_on{
+    display: none;
+}
+.profile_text_edit_on.on {
+    border-radius: 25px;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    z-index: 99999;
+    background-color: whitesmoke;
+
+    width: 200px;
+    height: 100px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile_text_edit_input_box{
+    font-size: 15px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.profile_text_edit_on > button{
+    cursor: pointer;
+    
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin-top: 5px;
+    border: none;
+    background-color: #999999;
+    width: 155px;
+    height: 25px;
+
+    border-radius: 5px;
+}
+.profile_text_edit_on > .border_container{
+    width: 185px;
+}
+.profile_text_edit_input_box > input{
+     user-select: all;
+     pointer-events: all;
+     background-color: inherit;
+     border: none;
+     width: 145px;
+     height: 35px;
+ }
+.profile_on{
+    display: none;
+}
+.profile_on.on{
+    display: block;
+}
+
+
+.profile_window{
+    border-radius: 25px;
+    box-sizing: border-box;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    z-index: 99999;
+    background-repeat: no-repeat;
+    background-size: 500px 700px;
+    background-image: url("../../../../public/img/main/kakao/default_background_img.jpg");
+    width: 500px;
+    height: 700px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.profile_header{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    z-index: 1;
+    width: inherit;
+    height: 50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+.profile_header > div:nth-child(1){
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    left: 13px;
+    background-size: 50px 50px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/window/icons8-earth.png");
+    width: 50px;
+    height: 50px;
+}
+.profile_header > div:nth-child(2){
+    display: none;
+}
+
+.profile_header.on > div:nth-child(2){
+    cursor: pointer;
+
+    font-size: 13px;
+    color: #191919;
+    border: none;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 50px;
+    left: 13px;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.profile_header > input{
+    display: none;
+}
+.profile_footer{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 1;
+    width: inherit;
+    box-sizing: border-box;
+    border-top: 2px solid rgba(0,0,0,0.2);
+}
+
+.profile_footer > *{
+    background-color: inherit;
+}
+.profile_footer > *:nth-child(1){
+    cursor: pointer;
+    margin: 0 0 25px 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url("../../../../public/img/main/window/icons8-chat.png");
+}
+.profile_footer > *:nth-child(2){
+    cursor: pointer;
+    margin: 0 0 25px 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url("../../../../public/img/main/window/icons8-pen.png");
+}
+.profile_footer > *:nth-child(3){
+    cursor: pointer;
+    margin: 0 0 25px 0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: url("../../../../public/img/main/window/icons8-block-100.png");
+}
+.profile_image_zoom{
+    display: none;
+}
+
+.profile_image_zoom.on{
+    z-index: 9999;
+    position: fixed;
+    background-color: rgba(0,0,0,0.7);
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px solid navajowhite;
+    border-radius: 1px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.profile_image_zoom.on > div:nth-child(1){
+    z-index: 99999;
+    width: 20px;
+    height: 20px;
+    margin: 10px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/window/icons8-exit.png");
+    background-size: 20px 20px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.profile_image_zoom.on > img:nth-child(2){
+    width: 80%;
+    height: 80%;
+    z-index: 99999;
+}
+.profile_edit{
+    display: none;
+}
+.profile_edit.on{
+    z-index: 9999;
+    position: fixed;
+    background-color: whitesmoke;
+    width: 70%;
+    height: 70%;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    box-sizing: border-box;
+    border: 1px solid navajowhite;
+    border-radius: 3px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.profile_edit.on > h4:nth-child(1){
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 25px;
+    color: #999999;
+    padding: 35px;
+}
+.profile_edit.on > div:nth-child(2){
+    z-index: 999991;
+    width: 21px;
+    height: 21px;
+    margin: 10px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/window/icons8-black-exit.png");
+    background-size: 20px 20px;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+.profile_edit.on > img:nth-child(3){
+    width: 100px;
+    height: 100px;
+    top: 130px;
+    cursor: pointer;
+    border-radius: 35px;
+}
+.profile_edit.on > span{
+    color: red;
+    font-size: 13px;
+}
+.edit_nickname_form{
+    padding-top: 25px;
+}
+.edit_text_form{
+    padding-top: 10px;
+}
+.edit_nickname_form, .edit_text_form{
+    color: rgba(0,0,0,0.5);
+    align-items: flex-start;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0,0,0,0.5);
+}
+.edit_nickname_form > input,
+.edit_text_form > input{
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+    border: none;
+    background-color: unset;
+}
+
+.edit_button_form{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 35px;
+
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.edit_button_form > *{
+    cursor:pointer;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 100px;
+    height: 30px;
+    font-size: 20px;
+}
+
+#image_input{
+    display: none;
+}
+
+.profile_window > .border_container{
+    width: 500px;
+}
+.profile_window > .profile_center{
+    z-index: 1;
+    padding-top: 300px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile_window > .profile_center > .profile_info{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100px;
+    height: 150px;
+    border-radius: 65px;
+}
+.profile_window > .profile_center > .profile_info > *{
+    margin: 3px 0 3px 0;
+}
+
+.profile_window > .profile_center > .profile_info > img{
+    width: 100px;
+    height: 150px;
+    border-radius: 65px;
+    box-sizing: border-box;
+}
+
+.profile_window > .profile_center > .profile_info > .profile_nickname.off{
+    display: none;
+}
+.profile_window > .profile_center > .profile_info > .profile_text.off{
+    display: none;
+}
+.profile_background_img{
+    border-radius: 25px;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 0;
+    width: 500px;
+    height: 700px;
+}
+
+.add_contact{
+    margin-top: 13px;;
+    cursor: pointer;
+    width: 50px;
+    height: inherit;
+    background-size: 50px 50px;
+    background-image: url("../../../../public/img/main/kakao/icons8-add-contact.png");
+    background-repeat: no-repeat;
+}
+
+.add_contact_on{
+    display: none;
+}
+
+.add_contact_on.on{
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    z-index: 99999;
+    background-color: whitesmoke;
+
+    width: 300px;
+    height: 450px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.add_contact_on > h4{
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(0,0,0,0.5);
+    padding: 30px 20px 30px 20px;
+}
+.add_contact_header{
+    color: rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    width: inherit;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.add_contact_header > *:nth-child(1){
+    margin-right: 20px;
+}
+.add_contact_header > *{
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+.add_contact_header > *.on{
+    color: rgba(0,0,0,1);
+    border-bottom: 2px solid black;
+}
+#contact_search, #id_search{
+    cursor: pointer;
+}
+.contact_search_form,
+.id_search_form {
+    display: none;
+}
+.contact_search_form.on, .id_search_form.on{
+    display: block;
+}
+.contact_search_form, .id_search_form{
+    padding: 30px 20px 30px 20px;
+    color: rgba(0,0,0,0.5);
+}
+.contact_search_form > div > input,
+.id_search_form > div > input {
+    background-color: unset;
+    border: none;
+}
+.contact_search_form > div:nth-child(-n+2){
+    width: calc(100% + 30px);
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 0 12px 0;
+}
+.contact_search_form > div:nth-child(3){
+    padding: 10px 0 10px 0;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.contact_search_form > div:nth-child(3) > span:nth-child(2){
+    color: red;
+}
+.contact_search_form > div > span{
+    font-size: 12px;
+}
+.contact_search_form > div:nth-child(-n+2) {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.contact_search_form > div:nth-child(4){
+    width: calc(100% + 30px);
+    height: 140px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.contact_search_form > div:nth-child(4) > button{
+    background-color: #e5e5e5;
+    color: rgba(0,0,0,0.5);
+    border: none;
+    width: 90px;
+    height: 45px;
+}
+.contact_search_form > div:nth-child(4) > button.on{
+    background-color: #FEE500;
+    color: black;
+    cursor: pointer;
+    transition: filter  0.1s ease;
+}
+
+.contact_search_form > div:nth-child(4) > button.on:hover{
+    filter: brightness(0.9);
+}
+.id_search_form > div {
+    width: calc(100% + 5px);
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 0 12px 0;
+}
+.id_search_form > div:nth-child(1){
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.id_search_form > div > span{
+    font-size: 12px;
+}
+.id_search_form > div:nth-child(2){
+    padding: 10px 0 10px 0;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.id_search_form > div:nth-child(2) > span:nth-child(2){
+    color: red;
+}
+
+#search_result.on{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 80%;
+    background-color: whitesmoke;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#search_result.on > span > img{
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+}
+#search_result.on > span:nth-child(4){
+    font-size: 15px;
+    font-weight: 200;
+    color: rgba(0,0,0,0.5);
+    padding-bottom: 50px;
+}
+.progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+    transition: width 0.3s ease;
+}
+.friend_profile_on{
+    display: none;
+}
+.friend_profile_on.true {
+    border-radius: 25px;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    z-index: 99999;
+    background-color: whitesmoke;
+
+    width: 200px;
+    height: 100px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loading-container {
+    z-index: 999999;
+    width: 500px;
+    height: 700px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-animation {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 3s linear infinite, fadeOut 1s ease 2s forwards;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}

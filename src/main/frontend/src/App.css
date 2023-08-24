@@ -1,0 +1,43 @@
+*{
+  margin-block:unset;
+  margin-inline:unset;
+  padding-block: unset;
+  padding-inline:unset;
+  font-family: "맑은 고딕", Arial, sans-serif;
+}
+ul{
+  list-style-type: none;
+}
+a{
+  text-decoration: none;
+}
+
+input[type="checkbox"]{
+  appearance: none;
+
+  pointer-events: all;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 10px;
+  outline: none;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked{
+  background-color: #FEE500;
+}
+#intro{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+#server_warning{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: orangered;
+  font-size: 25px;
+  background-color: black;
+}

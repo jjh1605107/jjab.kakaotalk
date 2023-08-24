@@ -1,0 +1,100 @@
+#section-register{
+    position: relative;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 0 69px 0 69px;
+    margin: 40px 0 0 0;
+}
+.cont_sign{
+    padding: 55px 0 50px 0;
+}
+.tit_g{
+    width: 440px;
+    height: 68px;
+}
+
+.box_tf{
+    width: 440px;
+    height: 47px;
+    margin: 47px 0 3px 0;
+    padding: 0 0 0 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #F0F0F0;
+    display: flex;
+    justify-content: space-between;
+}
+.box_tf.warning{
+    border-bottom: 1px solid red;
+}
+.email_id{
+    font-size: 16px;
+    font-weight: bold;
+    color: #8E8E8E;
+
+    border: none;
+    width: 309px;
+    height: 27px;
+    padding:  10px 0 8px;
+}
+
+.text_email{
+    height: 33px;
+    font-size: 16px;
+    padding: 10px 0 0 0;
+    color: #8E8E8E;
+}
+.info_tf{
+    display: none;
+    color: #E65F3E;
+    width: 440px;
+    height: 32px;
+    padding: 8px 0 4px 0;
+}
+.info_tf.warning{
+    font-size: 13px;
+    display: block;
+    color: #E65F3E;
+    width: 440px;
+    height: 32px;
+    padding: 8px 0 4px 0;
+}
+
+.list_notice{
+    width: 440px;
+    height: 81px;
+    padding: 24px 0 0 0;
+}
+
+.confirm_btn{
+    width: 440px;
+    padding: 48px 0 0;
+}
+
+.btn_g{
+    width: 100%;
+    height: 50px;
+    color: #191919;
+    background-color: #F0F0F0;
+    font-size: 16px;
+    user-select: none;
+    border: none;
+    pointer-events: none;
+
+}
+.btn_g.clear {
+    background-color: #FEE500;
+    pointer-events: all;
+}
+.btn_g.clear:hover{
+    cursor: pointer;
+    filter: brightness(102%);
+}
+
+.list_notice{
+    height: 57px;
+    color: #999999;
+    font-size: 12px;
+}

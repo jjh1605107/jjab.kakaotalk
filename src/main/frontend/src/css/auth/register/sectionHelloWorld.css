@@ -1,0 +1,106 @@
+#section-helloworld{
+    border: 1px solid rgba(0,0,0,10%);
+    margin: 40px 0 0 0;
+    box-sizing: border-box;
+}
+
+.cont_sign{
+    width: 727px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tit_done{
+    color: #191919;
+    font-size: 28px;
+}
+
+.desc_g{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    color: #999999;
+    font-size: 16px;
+    padding: 17px 0 48px 0;
+    box-sizing: border-box;
+}
+
+.wrap_profile{
+    width: 440px;
+    height: 66px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.photo_profile{
+    background-size: 68px 68px;
+    background-image: url("../../../../public/img/main/kakao/default_profile_img.png");
+    width: 68px;
+    height: 68px;
+    border: 1px solid rgba(0,0,0,10%);
+    background-color: white;
+    border-radius: 25px;
+}
+
+.change_photo_profile{
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    margin: 45px 0 0 50px;
+    width: 34px;
+    height: 34px;
+    border: 1px solid rgba(0,0,0,10%);
+    border-radius: 50%;
+    font-size: 10px;
+}
+
+.tit_profile{
+    color: #191919;
+    font-size: 18px;
+    padding: 14px 0 0 0;
+}
+.txt_profile{
+    color: #191919;
+    font-size: 14px;
+    padding: 8px 0 0 0;
+}
+
+.confirm_btn{
+    box-sizing: border-box;
+
+    width: 440px;
+    height: 182px;
+    padding: 69px 0 0 ;
+
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.desc_reception{
+    color: #999999;
+    font-size: 12px;
+}
+.desc_reception:nth-child(2){
+    padding: 0 0 23px;
+}
+
+.btn_start{
+    pointer-events: all;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 440px;
+    height: 50px;
+    color: #191919;
+    background-color: #FEE500;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+}
