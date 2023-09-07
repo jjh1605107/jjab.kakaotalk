@@ -30,6 +30,7 @@ class Chat extends Component{
         this.chatMessagesRef = React.createRef();
     }
     componentDidMount() {
+
         this.getRoomJoinList()
         this.fetchChatMessages()
         this.stompClient = Stomp.over(this.state.socket);
@@ -336,7 +337,7 @@ class Chat extends Component{
                             <div className="chatting_box">
                                 <div className="chatting_state">
                                     <p className="chatting_img" onClick={()=>(this.setState({room_info_on:this.state.room_info_on === false ? true : true, cover:'cover'}))}>
-                                        이미지
+
                                     </p>
                                     <div className="friend_profile_info">
                                         <p className="chatting_title">{this.props.roomName}</p>
@@ -467,7 +468,9 @@ class Chat extends Component{
                                 <div key={index} className="friend_profile_box hover" onClick={()=>(this.addFriendRoom(data.profile_contact, data.profile_nickname))}>
                                     <div className="friend_profile_state ">
                                         <p className="friend_profile_img">
-                                            <img src={data.profile_img} loading="lazy" alt=""/>
+                                            <picture>
+                                                <img src={data.profile_img} loading="lazy" alt=""/>
+                                            </picture>
                                         </p>
                                         <div className="friend_profile_info">
                                             <p className="friend_nickname">{data.profile_nickname}</p>

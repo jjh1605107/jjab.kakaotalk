@@ -46,7 +46,11 @@
     background-color: white;
     border-radius: 25px;
 }
-
+.photo_profile > img{
+    width: 68px;
+    height: 68px;
+    border-radius: 25px;
+}
 .change_photo_profile{
     text-align: center;
     background-color: white;

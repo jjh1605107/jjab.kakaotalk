@@ -7,7 +7,17 @@
     margin: 0 15px 0 15px;
     border-top: 1px solid #8E8E8E;
 }
-
+.loading-container-profile{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 .warning_box{
     height: 42px;
     align-items: flex-start;
@@ -112,7 +122,7 @@
 }
 .friend_profile_box{
     box-sizing: border-box;
-    height: 64px;
+    height: 84px;
     padding: 6px 13px 6px 13px;
 }
 .friend_profile_state{
@@ -121,20 +131,18 @@
 }
 
 .friend_profile_img{
-    margin-right: 10px;
-    background-size: 50px 50px;
+    margin: 0 10px 0 0;
+    background-size: 60px 60px;
     background-image: url("../../../../public/img/main/kakao/default_profile_img.png");
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(0,0,0,10%);
+    width: 60px;
+    height: 60px;
     border-radius: 25px;
 }
 
 .friend_profile_img > picture > img{
     z-index: 999;
-    width: 50px;
-    height: 50px;
-    border: 1px solid rgba(0,0,0,10%);
+    width: 60px;
+    height: 60px;
     border-radius: 25px;
 }
 .profile_text_edit_on{
@@ -236,7 +244,7 @@
     box-sizing: border-box;
     border-bottom: 1px solid rgba(0,0,0,0.5);
 }
-.profile_header > div:nth-child(1){
+.profile_header > div:nth-child(1) > div:nth-child(1){
     display: flex;
     align-items: center;
     justify-content: center;
@@ -254,11 +262,11 @@
     width: 50px;
     height: 50px;
 }
-.profile_header > div:nth-child(2){
+.profile_header > div:nth-child(1) > div:nth-child(2){
     display: none;
 }
 
-.profile_header.on > div:nth-child(2){
+.profile_header.on > div:nth-child(1) > div:nth-child(2){
     cursor: pointer;
 
     font-size: 13px;
@@ -277,8 +285,17 @@
     flex-direction: column;
     justify-content: center;
 }
-.profile_header > input{
+.profile_header >div:nth-child(1) > input{
     display: none;
+}
+.profile_header > div:nth-child(2){
+    cursor: pointer;
+    margin: 20px 30px 0 0;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-image: url("../../../../public/img/main/window/icons8-exit.png");
+    background-size: 30px 30px;
 }
 .profile_footer{
     align-items: center;

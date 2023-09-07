@@ -153,7 +153,6 @@ class ProfileWindow extends Component{
                                  });
                              };
                              reader.readAsDataURL(selectedImage);
-                             this.props.ImageEdit(responseObj.result);
                              break;
                      }
                  }
@@ -257,9 +256,15 @@ class ProfileWindow extends Component{
 
                 {loading && (
                 <div className={`profile_header ${this.state.edit_background_image_on}`}>
-                    <div onClick={this.editProfileBackgroundImage}>Click</div>
-                    <div onClick={this.changeProfileBackgroundImage}>배경사진 바꾸기</div>
-                    <input type="file" id="image_input2" accept="image/*"/>
+                    <div>
+                        <div onClick={this.editProfileBackgroundImage}>Click</div>
+                        <div onClick={this.changeProfileBackgroundImage}>배경사진 바꾸기</div>
+                        <input type="file" id="image_input2" accept="image/*"/>
+                    </div>
+
+                    <div onClick={this.props.exitCover}>
+                    </div>
+
                 </div>
                 )}
 

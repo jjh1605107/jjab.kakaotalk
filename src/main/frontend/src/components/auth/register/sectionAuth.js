@@ -150,7 +150,6 @@ class SectionAuth extends Component{
         formData.append('lunar', this.props.lunar);
         formData.append('salt', this.state.salt);
         formData.append('code', this.state.code);
-
         xhr.onloadstart = ()=> {
             this.setState({
                 cover: 'cover'
@@ -161,7 +160,7 @@ class SectionAuth extends Component{
                 cover:''
             })
         }
-        xhr.open('POST', 'user/register');
+        xhr.open('POST', '/user/register');
         xhr.onreadystatechange = () => {
           if (xhr.readyState === XMLHttpRequest.DONE){
              if (xhr.status >= 200 && xhr.status <300) {
@@ -180,7 +179,7 @@ class SectionAuth extends Component{
                  })
              }
            }else{
-              window.document.querySelector('.warning').innerText = '서버에 오류가 발생하였습니다.';
+              window.document.querySelector('.warning').innerText = `서버에 오류가 발생하였습니다. `;
               this.setState({
                   on3:'on'
               })

@@ -92,6 +92,7 @@ public class ChatController {
         JSONObject responseObject = new JSONObject(){{
             put("result", StatusResult.SUCCESS);
         }};
+        System.out.println(responseObject+"뭔오류냐?");
         return responseObject.toString();
     }
 

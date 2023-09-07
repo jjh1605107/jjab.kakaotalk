@@ -10,10 +10,16 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "https://jjab.jjh1605107.co.kr")
+                .allowedOrigins(
+                        "http://localhost:3000",
+                        "https://jjab.jjh1605107.co.kr",
+                        "https://jjab.jjh1605107.co.kr/register",
+                        "https://jjab.jjh1605107.co.kr/recover"
+                )
                 .allowedHeaders("*")
                 .allowedMethods("*");
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")

@@ -126,11 +126,8 @@ class FriendProfileWindow extends Component{
         xhr.open('GET', `/chat/createRoom?contactFriend=${this.state.friend_contact}`);
         xhr.onreadystatechange=()=> {
             if(xhr.readyState === XMLHttpRequest.DONE){
-                if(xhr.state >= 200 && xhr.state < 300){
+                if(xhr.status >= 200 && xhr.status < 300){
                     const responseObj = JSON.parse(xhr.responseText)
-
-                    alert(responseObj.result);
-
                     switch (responseObj.result){
                         case 'false':
                             alert("세션이 만료 되었습니다.(방만들기 창)");
@@ -147,6 +144,7 @@ class FriendProfileWindow extends Component{
                             alert("오류")
                             break;
                         default:
+                            this.props.exitCover();
                             break;
                     }
                 }
@@ -212,7 +210,9 @@ class FriendProfileWindow extends Component{
                     )}
                     {loading && (
                         <div className={`profile_header`}>
-
+                            <div></div>
+                            <div onClick={this.props.exitCover}>
+                            </div>
                         </div>
                     )}
                     {loading &&(

@@ -25,8 +25,11 @@ class Chatting extends Component{
                  const responseObj = JSON.parse(xhr.responseText);
                  const roomDataArray = [];
                  for (let i = 0; i < responseObj.result.length; i++) {
-                     const roomLastMessage = responseObj.result[i].roomLastMessage;
-                     const shortenedLastMessage = roomLastMessage.length <= 10 ? roomLastMessage : roomLastMessage.substring(0, 10) + '...';
+                     let shortenedLastMessage;
+                     if(responseObj.result[i].roomLastMessage !== undefined){
+                         const roomLastMessage = responseObj.result[i].roomLastMessage;
+                         shortenedLastMessage = roomLastMessage.length <= 10 ? roomLastMessage : roomLastMessage.substring(0, 10) + '...';
+                     }
                      const roomData = {
                          room_id:responseObj.result[i].roomId,
                          room_name:responseObj.result[i].roomName,

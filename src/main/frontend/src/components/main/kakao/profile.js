@@ -122,13 +122,13 @@ class Profile extends Component{
                          profile_nickname: responseObj.result[i].profileNickname,
                          profile_img:`data:image/*;base64,${responseObj.result[i].profileMainImg}`,
                          profile_background_img:`data:image/*;base64,${responseObj.result[i].profileBackgroundImg}`,
-                         profile_contact:responseObj.result[i].contact
+                         profile_contact:responseObj.result[i].contact,
                      };
                      friendDataArray.push(friendData);
                  }
                  this.setState({
                      friendList: friendDataArray,
-                     friends: this.state.friendList.length
+                     friends:friendDataArray.length
                  });
              }
            }
@@ -139,8 +139,10 @@ class Profile extends Component{
         const{friendList, loading}=this.state;
         if(loading===false){
             return(
-                <div className="loading-container">
-                    <div className="loading-animation"></div>
+                <div className="loading-container-profile">
+                    <div className="loading-container">
+                        <div className="loading-animation"></div>
+                    </div>
                 </div>
             )
         }
@@ -222,7 +224,8 @@ class Profile extends Component{
                     </div>
 
                     <div className={`profile_on ${this.state.profile_on}`}>
-                        <ProfileWindow getProfile={this.getProfile} />
+                        <ProfileWindow getProfile={this.getProfile}
+                                       exitCover={this.exitCover}/>
                     </div>
 
                     <div className={`add_contact_on ${this.state.edit_contact_add_on}`}>

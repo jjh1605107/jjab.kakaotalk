@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>recover</title>
     <style>
         .button-container > *{
             border: none;
@@ -111,7 +111,6 @@
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status >= 200 && xhr.status < 300) {
                             const responseObject = JSON.parse(xhr.responseText);
-                            alert(responseObject.result)
                             switch (responseObject.result) {
                                 case 'failure':
                                     recoverForm.warning.show('일치하는 회원을 찾을 수 없습니다.');
@@ -200,7 +199,6 @@
                     if (xhr.readyState === XMLHttpRequest.DONE) {
                         if (xhr.status >= 200 && xhr.status < 300) {
                             const responseObject = JSON.parse(xhr.responseText);
-                            alert(responseObject.result)
                             switch (responseObject.result) {
                                 case 'failure':
                                     alert('인증번호가 올바르지 않습니다. 다시 한번 확인해 주세요.');
