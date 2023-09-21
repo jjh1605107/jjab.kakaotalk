@@ -190,8 +190,8 @@ class ProfileWindow extends Component{
                             this.setState({
                                 profile_text:responseObj.profileText,
                                 profile_nickname:responseObj.nickname,
-                                profile_img:`data:image/*;base64,${responseObj.profileMainImg}`,
-                                profile_background_img: `data:image/*;base64,${responseObj.profileBackgroundImg}`,
+                                profile_img:responseObj.profileMainImg,
+                                profile_background_img:responseObj.profileBackgroundImg,
                                 loading:true
                             })
                             break;
@@ -248,10 +248,10 @@ class ProfileWindow extends Component{
         const {loading} = this.state;
         return(
             <div className={`profile_window`}>
-                {loading && this.state.profile_background_img !== 'data:image/*;base64,'?(
-                    <img className="profile_background_img" src={this.state.profile_background_img} alt=""/>
+                {loading && this.state.profile_background_img !== ''?(
+                    <img className="profile_background_img" src={process.env.PUBLIC_URL + this.state.profile_background_img} alt=""/>
                 ):(
-                    <img className="profile_background_img" src={process.env.PUBLIC_URL + '/img/main/kakao/default_background_img.jpg'} alt=""/>
+                    <img className="profile_background_img" src={process.env.PUBLIC_URL + '/image/default_background_img.jpg'} alt=""/>
                 )}
 
                 {loading && (
@@ -271,11 +271,7 @@ class ProfileWindow extends Component{
                 {loading &&(
                 <div className="profile_center">
                     <div className="profile_info">
-                        {this.state.profile_img !== 'data:image/*;base64,' ?(
-                            <img src={this.state.profile_img} onClick={this.editProfileImage} alt=""/>
-                        ):(
-                            <img src={process.env.PUBLIC_URL + '/img/main/kakao/default_profile_img.png'} alt=""/>
-                        )}
+                        <img src={process.env.PUBLIC_URL + this.state.profile_img} onClick={this.editProfileImage} alt=""/>
                         <p className={`profile_nickname`}>{this.state.profile_nickname}</p>
                         <p className={`profile_text`}>{this.state.profile_text}</p>
                     </div>

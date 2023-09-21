@@ -33,7 +33,7 @@ class Chatting extends Component{
                      const roomData = {
                          room_id:responseObj.result[i].roomId,
                          room_name:responseObj.result[i].roomName,
-                         room_main_image:`data:image/*;base64,${responseObj.result[i].roomMainImage}`,
+                         room_main_image:responseObj.result[i].roomMainImage,
                          room_users:responseObj.result[i].roomUsers,
                          room_last_message:shortenedLastMessage,
                          room_last_message_time:responseObj.result[i].roomLastMessageTime
@@ -74,8 +74,8 @@ class Chatting extends Component{
                             this.setState({
                                 profile_text:responseObj.profileText,
                                 profile_nickname:responseObj.nickname,
-                                profile_img:`data:image/*;base64,${responseObj.profileMainImg}`,
-                                profile_background_img: `data:image/*;base64,${responseObj.profileBackgroundImg}`,
+                                profile_img:responseObj.profileMainImg,
+                                profile_background_img: responseObj.profileBackgroundImg,
                                 profile_contact:responseObj.profileContact,
                                 loading:true
                             })
@@ -117,11 +117,7 @@ class Chatting extends Component{
                             <div key={index} className="chatting_box hover" onClick={() => { this.chatJoin(data.room_id, data.room_name, data.room_main_image) }}>
                                 <div className="chatting_state">
                                     <p className="chatting_img">
-                                        {data.room_main_image !== 'data:image/*;base64,' ?(
-                                            <img src={data.room_main_image} loading="lazy" alt="" />
-                                        ):(
-                                            <img src={process.env.PUBLIC_URL + '/img/main/kakao/default_profile_img.png'} alt=""/>
-                                        )}
+                                         <img src={process.env.PUBLIC_URL + data.room_main_image} loading="lazy" alt="" />
                                     </p>
                                     <div className="friend_profile_info">
                                         <p className="chatting_title">{data.room_name} <p>{data.room_users}</p></p>
@@ -138,6 +134,7 @@ class Chatting extends Component{
                 {this.state.chatOn && (
                     <div className="chatting_box2">
                         <Chat nickName={this.state.profile_nickname}
+                              image={this.state.profile_img}
                               contact={this.state.profile_contact}
                               userImage={this.state.profile_img}
                               roomId={this.state.roomId}

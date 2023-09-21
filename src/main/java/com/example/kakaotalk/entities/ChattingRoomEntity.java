@@ -5,7 +5,7 @@ import java.util.Objects;
 public class ChattingRoomEntity {
     private String roomId;
     private String chattingRoomName;
-    private byte[] chattingRoomMainImage;
+    private String chattingRoomMainImage;
     private String chattingRoomUsers;
     private String chattingRoomLastMessage;
     private String chattingRoomLastMessageTime;
@@ -38,12 +38,12 @@ public class ChattingRoomEntity {
         this.chattingRoomName = chattingRoomName;
     }
 
-    public byte[] getChattingRoomMainImage() {
+    public String getChattingRoomMainImage() {
         return chattingRoomMainImage;
     }
 
     public void setChattingRoomMainImage(String chattingRoomMainImage) {
-        this.chattingRoomMainImage = chattingRoomMainImage.getBytes();
+        this.chattingRoomMainImage = chattingRoomMainImage;
     }
 
     public String getChattingRoomUsers() {

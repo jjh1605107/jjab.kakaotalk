@@ -21,8 +21,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Base64;
-
 
 @Controller
 @RequestMapping(value = "/user")
@@ -138,7 +136,9 @@ public class UserController {
                     produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String getUserProfile(@CookieValue(name = "jwtToken") String jwtValue,
-                                 @RequestParam(name = "contact", required = false)String contact){
+                                 @RequestParam(name = "contact", required = false)String contact) throws InterruptedException {
+
+        Thread.sleep(500);
         ClientJwtResult check = this.userService.jwtCheck(jwtValue);
         if(check == ClientJwtResult.NULL || check == ClientJwtResult.FALSE){
             JSONObject responseObject = new JSONObject(){{
@@ -153,14 +153,13 @@ public class UserController {
         }else{
             result = this.userService.getUserProfile(jwtValue, null);
         }
-
-
+        System.out.println(result.getProfileMainImg()+"잘뜸?");
         JSONObject responseObject = new JSONObject();
         responseObject.put("nickname", result.getProfileNickname());
         responseObject.put("profileText", result.getProfileText());
         responseObject.put("profileContact", result.getContact());
-        responseObject.put("profileMainImg", result.getProfileMainImg()!=null?Base64.getEncoder().encodeToString(result.getProfileMainImg()):"");
-        responseObject.put("profileBackgroundImg", result.getProfileBackgroundImg()!=null ? Base64.getEncoder().encodeToString(result.getProfileBackgroundImg()) : "");
+        responseObject.put("profileMainImg", result.getProfileMainImg());
+        responseObject.put("profileBackgroundImg", result.getProfileBackgroundImg());
         return responseObject.toString();
     }
 
@@ -168,7 +167,9 @@ public class UserController {
                     method = RequestMethod.GET,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String getUserFriend(@CookieValue(name = "jwtToken") String jwtValue){
+    public String getUserFriend(@CookieValue(name = "jwtToken") String jwtValue) throws InterruptedException {
+        Thread.sleep(600);
+
         ClientJwtResult check = this.userService.jwtCheck(jwtValue);
         if(check == ClientJwtResult.NULL || check == ClientJwtResult.FALSE){
             JSONObject responseObject = new JSONObject(){{
@@ -182,8 +183,8 @@ public class UserController {
         for (int i = 0; i < result.length; i++) {
             JSONObject friendObject = new JSONObject();
             friendObject.put("contact", result[i].getContact());
-            friendObject.put("profileMainImg", result[i].getProfileMainImg()!=null?Base64.getEncoder().encodeToString(result[i].getProfileMainImg()):"");
-            friendObject.put("profileBackgroundImg", result[i].getProfileBackgroundImg()!=null?Base64.getEncoder().encodeToString(result[i].getProfileBackgroundImg()):"");
+            friendObject.put("profileMainImg", result[i].getProfileMainImg());
+            friendObject.put("profileBackgroundImg", result[i].getProfileBackgroundImg());
             friendObject.put("profileText", result[i].getProfileText());
             friendObject.put("profileNickname", result[i].getProfileNickname());
             jsonArray.put(friendObject);
@@ -337,6 +338,7 @@ public class UserController {
             }};
             return responseObject.toString();
         }
+
         //친구 추가 성공
         JSONObject responseObject = new JSONObject();
         StatusResult result2 = this.userService.addFriend(check2.getContact(), contact.getContact());
@@ -345,7 +347,6 @@ public class UserController {
             responseObject.put("friend_nickname", result.getProfileNickname());
             responseObject.put("friend_profileText", result.getProfileText());
             responseObject.put("friend_profileMainImg", result.getProfileMainImg());
-            responseObject.put("friend_profileBackgroundImg", result.getProfileBackgroundImg());
             return responseObject.toString();
         };
         //친구 추가 실패

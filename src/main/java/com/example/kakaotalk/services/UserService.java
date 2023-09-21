@@ -1,7 +1,5 @@
 package com.example.kakaotalk.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.example.kakaotalk.entities.*;
 import com.example.kakaotalk.enums.*;
 import com.example.kakaotalk.mappers.UserMapper;
@@ -12,7 +10,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -23,10 +20,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.servlet.ServletContext;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -36,14 +31,15 @@ public class UserService {
     private final UserMapper userMapper;
     private JavaMailSender javaMailSender;
     private final SpringTemplateEngine springTemplateEngine;
-    @Value("${spring.web.resources.static-locations}")
-    private String staticLocations;
+    private ServletContext servletContext;
+
 
     @Autowired
-    public UserService(UserMapper userMapper, JavaMailSender javaMailSender, SpringTemplateEngine springTemplateEngine, ResourceLoader resourceLoader) {
+    public UserService(UserMapper userMapper, JavaMailSender javaMailSender, SpringTemplateEngine springTemplateEngine, ServletContext servletContext) {
         this.userMapper = userMapper;
         this.javaMailSender = javaMailSender;
         this.springTemplateEngine = springTemplateEngine;
+        this.servletContext = servletContext;
     }
     
     //이메일 있나 체크하는 메소드
@@ -298,22 +294,44 @@ public class UserService {
                 StatusResult.SUCCESS : StatusResult.FAILURE;
     }
 
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
     public ProfileEditResult patchProfileImage(String jwtValue, MultipartFile profileMainImg, MultipartFile profileBackgroundImg) {
         String contact = JwtUtil.jwtUser(jwtValue);
         UserProfileEntity selectUpdateUser = this.userMapper.selectUserProfileByContact(contact);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        String formattedDateTime = currentDateTime.format(formatter);
+        String uploadDirectory = uploadDir;
         try {
             if (profileMainImg != null) {
-                selectUpdateUser.setProfileMainImg(profileMainImg.getBytes());
-                selectUpdateUser.setProfileMainImgSize((int) profileMainImg.getSize());
-                selectUpdateUser.setProfileMainImgContentType(profileMainImg.getContentType());
+                File uploadDir = new File(uploadDirectory+"/main");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+                String originalFileName = profileMainImg.getOriginalFilename();
+                String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                String fileName = contact + formattedDateTime + fileExtension;
+                File uploadFile = new File(uploadDir.getAbsolutePath() + "/" + fileName);
+                profileMainImg.transferTo(uploadFile);
+                selectUpdateUser.setProfileMainImg("/image/main/"+fileName);
             }
             if (profileBackgroundImg != null) {
-                selectUpdateUser.setProfileBackgroundImg(profileBackgroundImg.getBytes());
-                selectUpdateUser.setProfileBackgroundImgSize((int) profileBackgroundImg.getSize());
-                selectUpdateUser.setProfileBackgroundImgContentType(profileBackgroundImg.getContentType());
+                File uploadDir = new File(uploadDirectory+"/background");
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+                String originalFileName = profileBackgroundImg.getOriginalFilename();
+                String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                String fileName = contact + formattedDateTime + fileExtension;
+                File uploadFile = new File(uploadDir.getAbsolutePath() + "/" + fileName);
+                profileBackgroundImg.transferTo(uploadFile);
+                selectUpdateUser.setProfileBackgroundImg("/image/background/"+fileName);
             }
             return this.userMapper.updateUserProfileImage(selectUpdateUser) > 0 ? ProfileEditResult.SUCCESS : ProfileEditResult.FAILURE;
         } catch (Exception e) {
+            e.printStackTrace();
             return ProfileEditResult.FAILURE;
         }
     }
@@ -341,7 +359,7 @@ public class UserService {
 
     public StatusResult toggleFriendStatus(String jwtValue, String contactFriend) {
         String contact = JwtUtil.jwtUser(jwtValue);
-        return this.userMapper.toggleFriendStatus(contact, contactFriend) > 0 ? StatusResult.SUCCESS : StatusResult.FAILURE;
+        return this.userMapper.deleteFriend(contact, contactFriend) > 0 ? StatusResult.SUCCESS : StatusResult.FAILURE;
     }
 
 

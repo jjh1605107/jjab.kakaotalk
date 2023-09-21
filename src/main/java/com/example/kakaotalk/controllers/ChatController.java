@@ -19,7 +19,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
 
 @Controller
 @RequestMapping(value = "/chat")
@@ -138,10 +137,13 @@ public class ChatController {
             JSONObject roomListObject = new JSONObject();
             roomListObject.put("roomId",  roomInfo.getRoomId());
             roomListObject.put("roomName",  roomInfo.getChattingRoomName());
-            roomListObject.put("roomMainImage",  roomInfo.getChattingRoomMainImage()!=null? Base64.getEncoder().encodeToString(roomInfo.getChattingRoomMainImage()):"");
+            roomListObject.put("roomMainImage",  roomInfo.getChattingRoomMainImage());
             roomListObject.put("roomUsers", roomInfo.getChattingRoomUsers());
             roomListObject.put("roomLastMessage", roomInfo.getChattingRoomLastMessage());
             roomListObject.put("roomLastMessageTime", roomInfo.getChattingRoomLastMessageTime());
+            System.out.println(roomInfo.getChattingRoomMainImage()+"뒘?");
+            System.out.println(roomInfo.getChattingRoomUsers()+"퉴?");
+            System.out.println(roomInfo.getChattingRoomName()+"쉠?");
             jsonArray.put(roomListObject);
         }
         JSONObject responseObject = new JSONObject();
@@ -167,8 +169,8 @@ public class ChatController {
         for (int i = 0; i < result.length; i++) {
             JSONObject userObject = new JSONObject();
             userObject.put("contact", result[i].getContact());
-            userObject.put("profileMainImg", result[i].getProfileMainImg()!=null?Base64.getEncoder().encodeToString(result[i].getProfileMainImg()):"");
-            userObject.put("profileBackgroundImg", result[i].getProfileBackgroundImg()!=null?Base64.getEncoder().encodeToString(result[i].getProfileBackgroundImg()):"");
+            userObject.put("profileMainImg", result[i].getProfileMainImg());
+            userObject.put("profileBackgroundImg", result[i].getProfileBackgroundImg());
             userObject.put("profileText", result[i].getProfileText());
             userObject.put("profileNickname", result[i].getProfileNickname());
             jsonArray.put(userObject);

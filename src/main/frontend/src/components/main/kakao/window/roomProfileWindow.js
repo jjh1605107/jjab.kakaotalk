@@ -190,9 +190,9 @@ class RoomProfileWindow extends Component{
                             break;
                         default:
                             this.setState({
-                                room_name:responseObj.roomName,
-                                room_main_image:responseObj.roomMainImage,
-                                room_user_count:responseObj.roomUsers
+                                profile_nickname:responseObj.result[0].roomName,
+                                profile_img:responseObj.result[0].roomMainImage,
+                                profile_text:responseObj.result[0].roomUsers
                             },()=>{this.setState({loading:true})})
                             break;
                     }
@@ -256,9 +256,8 @@ class RoomProfileWindow extends Component{
         if(loading===true){
             return(
                 <div className={`profile_window`}>
-                    {loading && (<img className="profile_background_img" src={process.env.PUBLIC_URL + '/img/main/kakao/default_background_img.jpg'} alt=""/> )}
-
-                    {loading && (
+                    {loading && (<img className="profile_background_img" src={process.env.PUBLIC_URL + '/image/default_background_img.jpg'} alt=""/> )}
+                    {loading && this.state.room_id ===''&&(
                         <div className={`profile_header ${this.state.edit_background_image_on}`}>
                             <div onClick={this.editProfileBackgroundImage}>Click</div>
                             <div onClick={this.changeProfileBackgroundImage}>배경사진 바꾸기</div>
@@ -283,7 +282,6 @@ class RoomProfileWindow extends Component{
                             </div>
                         </div>
                     )}
-
                     {loading &&(
                         <div className={`profile_image_zoom ${this.state.zoom_image_on}`}>
                             <div onClick={this.exitZoomImage}></div>

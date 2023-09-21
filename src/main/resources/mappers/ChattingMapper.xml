@@ -44,7 +44,6 @@
         from `react_springboot_crud`.`chatting_room`
         where binary `room_id` = #{roomId} limit 1
     </select>
-
     <select id="selectMyChattingRoomList"
             parameterType="com.example.kakaotalk.model.ChatMessage"
         resultType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
@@ -55,9 +54,6 @@
         where binary `contact` = #{check} and `room_id` = #{roomId}
         limit 1
     </select>
-
-
-
     <insert id="insertChatMessage"
             useGeneratedKeys="true"
             keyProperty="id"
@@ -72,18 +68,12 @@
             (chatting_messages_content_id, room_id, contact, is_read)
         VALUES (#{id}, #{roomId},#{contact}, #{isRead})
     </insert>
-
-
-
     <update id="updateMessageReadStatus"
             parameterType="com.example.kakaotalk.model.ChatMessage">
         UPDATE `react_springboot_crud`.`chatting_messages`
         SET `is_read` = 1
         WHERE binary `id` = #{messageId}
     </update>
-
-
-
     <select id="getMessageById"
             resultType="com.example.kakaotalk.model.ChatMessage"
             parameterType="java.lang.String">
@@ -102,8 +92,6 @@
             parameterType="java.lang.String">
         SELECT * FROM `react_springboot_crud`.`chatting_messages` WHERE binary `room_id` = #{roomId}
     </select>
-
-
     <select id="selectRoomJoinList"
         parameterType="com.example.kakaotalk.entities.ChattingRoomUserListEntity"
         resultType="java.lang.String">
@@ -111,7 +99,6 @@
         from `react_springboot_crud`.`chatting_room_user_list`
         where binary `room_id` = #{roomId}
     </select>
-
     <select id="selectUserProfileByContact"
             parameterType="com.example.kakaotalk.entities.UserProfileEntity"
             resultType="com.example.kakaotalk.entities.UserProfileEntity">
@@ -124,7 +111,6 @@
         FROM `react_springboot_crud`.`user_profile`
         WHERE BINARY `contact` = #{contact}
     </select>
-
     <select id="fetchChatMessages"
             resultType="com.example.kakaotalk.model.ChatMessage"
             parameterType="com.example.kakaotalk.entities.ChattingRoomUserListEntity">
@@ -144,7 +130,6 @@
         ORDER BY `sent_at` ASC;
         ]]>
     </select>
-
     <insert id="insertAddFriendRoom">
         insert into `react_springboot_crud`.`chatting_room_user_list`
             (contact, room_id) VALUES (#{contactFriend}, #{roomId});

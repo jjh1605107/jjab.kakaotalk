@@ -12,8 +12,9 @@ public class ChatMessage {
     private String sentAt;
     private boolean isRead;
     private int unreadCount;
+    private int userTotalCount;
     private String check;
-    private byte[] image;
+    private String image;
 
     public String getRoomId() {
         return roomId;
@@ -90,13 +91,14 @@ public class ChatMessage {
         return this;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
+
     public String getRoomLength() {
         return roomLength;
     }
@@ -104,5 +106,13 @@ public class ChatMessage {
     public ChatMessage setRoomLength(String roomLength) {
         this.roomLength = roomLength;
         return this;
+    }
+
+    public int getUserTotalCount() {
+        return userTotalCount;
+    }
+
+    public void setUserTotalCount(int userTotalCount) {
+        this.userTotalCount = userTotalCount;
     }
 }

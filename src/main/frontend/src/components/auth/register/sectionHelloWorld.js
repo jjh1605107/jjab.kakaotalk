@@ -33,7 +33,7 @@ class SectionHelloWorld extends Component{
                         </div>
                         <div className="wrap_profile">
                             <span className="photo_profile">
-                                 <img src={process.env.PUBLIC_URL + '/img/main/kakao/default_profile_img.png'} alt=""/>
+                                 <img src={process.env.PUBLIC_URL + '/image/default_profile_img.png'} alt=""/>
                             </span>
                             <button className="change_photo_profile">
                                 <span><img width="20" height="20" src="https://img.icons8.com/ios-glyphs/30/camera--v1.png" alt="camera--v1"/></span>

@@ -4,12 +4,15 @@ import SockJS from 'sockjs-client';
 import Stomp from 'stompjs';
 import FriendProfileWindow from "../window/frinedProfileWindow";
 import RoomProfileWindow from "../window/roomProfileWindow";
+import Profile from "../profile";
+import ProfileWindow from "../window/profileWindow";
 class Chat extends Component{
     constructor(props) {
         super(props);
         this.state={
             roomId:props.roomId,
             username: props.nickName,
+            userImage:props.image,
             socket : new SockJS(`https://jjab.jjh1605107.co.kr/chat/${props.roomId}`),
             //socket : new SockJS(`http://localhost:3000/chat/${props.roomId}`),
             messages:[''],
@@ -19,7 +22,6 @@ class Chat extends Component{
             chatting_add_user_on:'',
             chatting_add_window_on:'',
             chatting_user_list_on:'',
-
             friendList:[],
             userList:[],
             userLength:0,
@@ -30,7 +32,6 @@ class Chat extends Component{
         this.chatMessagesRef = React.createRef();
     }
     componentDidMount() {
-
         this.getRoomJoinList()
         this.fetchChatMessages()
         this.stompClient = Stomp.over(this.state.socket);
@@ -64,7 +65,7 @@ class Chat extends Component{
             roomId:this.state.roomId,
             content:'JOIN',
             check:this.props.contact,
-            unreadCount:this.state.userList.length,}));
+            unreadCount:this.state.userLength,}));
     };
     onDisconnected = () => {
         this.stompClient.send(`/app/chat.sendMessage/${this.state.roomId}`, {}, JSON.stringify({
@@ -73,7 +74,7 @@ class Chat extends Component{
             roomId:this.state.roomId,
             content: 'LEAVE',
             check:this.props.contact,
-            unreadCount:this.state.userList.length,}));
+            unreadCount:this.state.userLength,}));
     };
     sendMessage = (e) => {
         if (e.ctrlKey && e.key === 'Enter') {
@@ -86,10 +87,11 @@ class Chat extends Component{
             if (this.state.messageInput !==''&& this.state.messageInput!=='/n' && this.stompClient) {
                 const chatMessage = {
                     sender: this.state.username,
+                    image:this.state.userImage,
                     content: this.state.messageInput,
                     roomId: this.state.roomId,
                     type: 'CHAT',
-                    unreadCount:this.state.userList.length,
+                    unreadCount:this.state.userLength,
                     check:this.props.contact,
                 };
                 this.stompClient.send(`/app/chat.sendMessage/${this.state.roomId}`, {}, JSON.stringify(chatMessage));
@@ -104,7 +106,7 @@ class Chat extends Component{
         if (!this.isDuplicateMessage(msg)) {
             const messages = [...this.state.messages];
             messages.push(msg);
-            this.setState({ messages });
+            this.setState({ messages, userLength:msg.userTotalCount });
         }
     };
     isDuplicateMessage = (msg) => {
@@ -129,11 +131,10 @@ class Chat extends Component{
                         const userData={
                             profile_text: responseObj.result[i].profileText,
                             profile_nickname: responseObj.result[i].profileNickname,
-                            profile_img: `data:image/*;base64,${responseObj.result[i].profileMainImg}`,
-                            profile_background_img: `data:image/*;base64,${responseObj.result[i].profileBackgroundImg}`,
+                            profile_img: responseObj.result[i].profileMainImg,
+                            profile_background_img: responseObj.result[i].profileBackgroundImg,
                             profile_contact:responseObj.result[i].contact
                         };
-                        localStorage.setItem(responseObj.result[i].contact, `data:image/*;base64,${responseObj.result[i].profileMainImg}`);
                         userDataArray.push(userData);
                     }
                     var count = responseObj.userCount;
@@ -168,8 +169,8 @@ class Chat extends Component{
                                 const friendData = {
                                     profile_text: responseObj.result[i].profileText,
                                     profile_nickname: responseObj.result[i].profileNickname,
-                                    profile_img:`data:image/*;base64,${responseObj.result[i].profileMainImg}`,
-                                    profile_background_img:`data:image/*;base64,${responseObj.result[i].profileBackgroundImg}`,
+                                    profile_img:responseObj.result[i].profileMainImg,
+                                    profile_background_img:responseObj.result[i].profileBackgroundImg,
                                     profile_contact:responseObj.result[i].contact
                                 };
                                 friendDataArray.push(friendData);
@@ -235,7 +236,7 @@ class Chat extends Component{
                                 type: 'ADD',
                                 content: 'ADD',
                                 roomId: this.state.roomId,
-                                unreadCount:this.state.userList.length+1,
+                                unreadCount:this.state.userLength+1,
                                 check:contact
                             }));
                             break;
@@ -267,7 +268,7 @@ class Chat extends Component{
                                 type: 'EXIT',
                                 content: 'EXIT',
                                 roomId: this.state.roomId,
-                                unreadCount:this.state.userList.length,
+                                unreadCount:this.state.userLength-1,
                                 check:this.props.contact
                             }));
                             this.exitChat()
@@ -309,15 +310,6 @@ class Chat extends Component{
         })
     }
     render() {
-        const getImageSrc = (data) => {
-            const localStorageImageData = localStorage.getItem(data);
-            if (localStorageImageData) {
-                return `${localStorageImageData}`;
-            } else {
-                return process.env.PUBLIC_URL + '/img/main/kakao/default_profile_img.png';
-            }
-        };
-
         if(this.state.loading === false){
             return(
                 <div className="loading-container">
@@ -392,7 +384,7 @@ class Chat extends Component{
                                         ):(
                                             <div className="your_message">
                                                 <div className="your_image">
-                                                    <img src={getImageSrc(message.check)} alt=""/>
+                                                    <img src={message.image} alt=""/>
                                                 </div>
                                                 <div className="your_message_box">
                                                     <span className="your_nickname">{message.sender}</span>
@@ -481,14 +473,20 @@ class Chat extends Component{
                             ))}
                         </div>
                     </div>
-                    {this.state.friend_profile_on && (
+                    {this.state.friend_profile_on && this.state.friend_profile_contact !== this.props.contact ?(
                         <div className={`friend_profile_on ${this.state.friend_profile_on}`}>
                             <FriendProfileWindow contact={this.state.friend_profile_contact}
                                                  nickname={this.state.friend_profile_nickname}
                                                  textEdit2={this.textEdit2}
                                                  exitCover={this.exitCover}/>
                         </div>
+                    ):(
+                        <div className={`friend_profile_on ${this.state.friend_profile_on}`}>
+                            <ProfileWindow getProfile={this.getProfile}
+                                           exitCover={this.exitCover}/>
+                        </div>
                     )}
+
                     {this.state.room_info_on &&(
                         <div className={`room_info_on ${this.state.room_info_on}`}>
                             <RoomProfileWindow roomId={this.state.roomId}

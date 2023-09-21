@@ -32,7 +32,7 @@ public class ChattingService {
         String contact = JwtUtil.jwtUser(jwtValue);
         String roomId = UUID.randomUUID().toString();
         String sharedId = roomId;
-        if(!this.userMapper.selectFriendContactStatus(contactFriend).getStatus().equals("BLOCK")){
+        if(!this.userMapper.selectFriendContactStatus(contact, contactFriend).getStatus().equals("BLOCK")){
             String roomName = this.userMapper.selectUserProfileByContact(contact).getProfileNickname()+", "+this.userMapper.selectUserProfileByContact(contactFriend).getProfileNickname();
             this.chattingMapper.createRoom(sharedId, roomName);
             this.chattingMapper.joinRoom(sharedId, contact);
@@ -54,19 +54,15 @@ public class ChattingService {
     public void saveMessage(ChatMessage chatMessage) {
         chatMessage.setSentAt(String.valueOf(LocalDateTime.now()));
         ChattingRoomUserListEntity[] readCheck = this.chattingMapper.selectRoomUserList(chatMessage.getRoomId());
-        ChattingRoomUserListEntity[] roomUserSaveMessage = this.chattingMapper.selectRoomUserList(chatMessage.getRoomId());
         this.chattingMapper.insertChatMessage(chatMessage);
-
         //채팅 저장후 리턴된 index를 check 테이블에 다시 저장
-        for (int i = 0; i < roomUserSaveMessage.length; i++){
-            if(chatMessage.getCheck().equals(roomUserSaveMessage[i].getContact())){
-                this.chattingMapper.insertChatMessageCheck(chatMessage.getId(), chatMessage.getRoomId(), roomUserSaveMessage[i].getContact(), true);
+        for (int i = 0; i < readCheck.length; i++){
+            if(chatMessage.getCheck().equals(readCheck[i].getContact())){
+                this.chattingMapper.insertChatMessageCheck(chatMessage.getId(), chatMessage.getRoomId(), readCheck[i].getContact(), true);
             }else{
-                this.chattingMapper.insertChatMessageCheck(chatMessage.getId(), chatMessage.getRoomId(), roomUserSaveMessage[i].getContact(), false);
+                this.chattingMapper.insertChatMessageCheck(chatMessage.getId(), chatMessage.getRoomId(), readCheck[i].getContact(), false);
             }
-        }
-        //채팅중인 유저 수 만큼 읽음 처리
-        for(int i = 0; i < readCheck.length; i++){
+            //채팅중인 유저 수 만큼 읽음 처리
             if(readCheck[i].getType().equals("CONNECT")) {
                 chatMessage.setRead(true);
                 chatMessage.setUnreadCount(chatMessage.getUnreadCount()-1);
@@ -74,6 +70,7 @@ public class ChattingService {
                 this.chattingMapper.updateChatMessage(chatMessage.getId());
             }
         }
+        chatMessage.setUserTotalCount(readCheck.length);
         //마지막 채팅 저장
         if(chatMessage.getType().equals(MessageType.CHAT)){
             this.chattingMapper.updateChattingRoomLastMessage(chatMessage.getContent(), chatMessage.getSentAt(), chatMessage.getRoomId());
@@ -81,7 +78,7 @@ public class ChattingService {
     }
 
     public ChatMessage[] fetchChatMessages(ChatMessage chatMessage) {
-                this.chattingMapper.fetchChatMessageCheck(chatMessage);
+        this.chattingMapper.fetchChatMessageCheck(chatMessage);
         return this.chattingMapper.fetchChatMessages(this.chattingMapper.selectMyChattingRoomList(chatMessage));
     }
 

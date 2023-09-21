@@ -193,15 +193,8 @@
         parameterType="com.example.kakaotalk.entities.UserProfileEntity"
         resultType="com.example.kakaotalk.entities.UserProfileEntity">
         SELECT contact as `contact`,
-
                profile_main_img as `profileMainImg`,
-               profile_main_img_size as `profileMainImgSize`,
-               profile_main_img_content_type as `profileMainImgContentType`,
-
                profile_background_img as `profileBackgroundImg`,
-               profile_background_img_size as `profileBackgroundImgSize`,
-               profile_background_content_type as `profileBackgroundImgContentType`,
-
                profile_text as `profileText`,
                profile_nickname as `profileNickname`
         FROM `react_springboot_crud`.`user_profile`
@@ -222,11 +215,7 @@
         UPDATE `react_springboot_crud`.`user_profile`
         SET
             `profile_main_img` = #{profileMainImg},
-            `profile_main_img_size` = #{profileMainImgSize},
-            `profile_main_img_content_type` = #{profileMainImgContentType},
-            `profile_background_img`= #{profileBackgroundImg},
-            `profile_background_img_size` = #{profileBackgroundImgSize},
-            `profile_background_content_type` = #{profileBackgroundImgContentType}
+            `profile_background_img`= #{profileBackgroundImg}
         WHERE BINARY `contact` = #{contact}
         LIMIT 1;
     </update>
@@ -272,6 +261,7 @@
         WHERE BINARY `contact` = #{contact} and `contact_friend` = #{contactFriend}
         LIMIT 1;
     </update>
+
     <update id="toggleFriendStatus"
             parameterType="map">
         UPDATE `react_springboot_crud`.`user_friends_list`
@@ -285,6 +275,12 @@
         LIMIT 1;
     </update>
 
+    <delete id="deleteFriend">
+        delete from `react_springboot_crud`.`user_friends_list`
+        WHERE BINARY `contact` = #{contact} AND `contact_friend` = #{contactFriend}
+        LIMIT 1;
+    </delete>
+
     <delete id="deleteUserFriend">
         delete from `react_springboot_crud`.`user_friends_list`
         where `contact` = #{contact} and `contact_friend` = #{contactFriend} limit 1;
@@ -296,7 +292,7 @@
                `user_friend_name_edit` as `userFriendNameEdit`,
                `status` as `status`
         from `react_springboot_crud`.`user_friends_list`
-        where binary contact = #{contact} limit 1
+        where binary contact = #{contact} and contact_friend = #{contactFriend} limit 1
     </select>
 
     <insert id="insertRecoverEmailCode"

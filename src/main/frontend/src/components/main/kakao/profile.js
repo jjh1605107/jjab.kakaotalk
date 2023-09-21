@@ -97,8 +97,8 @@ class Profile extends Component{
                             contact:responseObj.profileContact,
                             profile_text:responseObj.profileText,
                             profile_nickname:responseObj.nickname,
-                            profile_img:`data:image/*;base64,${responseObj.profileMainImg}`,
-                            profile_background_img: `data:image/*;base64,${responseObj.profileBackgroundImg}`,
+                            profile_img:responseObj.profileMainImg,
+                            profile_background_img: responseObj.profileBackgroundImg,
                             loading:true
                         })
                         break;
@@ -120,8 +120,8 @@ class Profile extends Component{
                      const friendData = {
                          profile_text: responseObj.result[i].profileText,
                          profile_nickname: responseObj.result[i].profileNickname,
-                         profile_img:`data:image/*;base64,${responseObj.result[i].profileMainImg}`,
-                         profile_background_img:`data:image/*;base64,${responseObj.result[i].profileBackgroundImg}`,
+                         profile_img:responseObj.result[i].profileMainImg,
+                         profile_background_img:responseObj.result[i].profileBackgroundImg,
                          profile_contact:responseObj.result[i].contact,
                      };
                      friendDataArray.push(friendData);
@@ -199,15 +199,9 @@ class Profile extends Component{
                                     <div key={index} className="friend_profile_box hover" onClick={()=>this.onFriendProfileWindow(data.profile_contact, data.profile_nickname)}>
                                         <div className="friend_profile_state ">
                                             <p className="friend_profile_img">
-                                                {data.profile_img !== 'data:image/*;base64,' ?(
                                                 <picture>
-                                                    <img src={data.profile_img} loading="lazy" alt=""/>
+                                                    <img src={process.env.PUBLIC_URL + '/image/default_profile_img.png'} alt=""/>
                                                 </picture>
-                                                ) : (
-                                                    <picture>
-                                                        <img src={process.env.PUBLIC_URL + '/img/main/kakao/default_profile_img.png'} alt=""/>
-                                                    </picture>
-                                                )}
                                             </p>
                                             <div className="friend_profile_info">
                                                 <p className="friend_nickname">{data.profile_nickname}</p>

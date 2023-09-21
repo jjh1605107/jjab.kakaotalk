@@ -35,7 +35,9 @@ public interface UserMapper {
     UserFriendListEntity[] selectFriendContactList(@Param(value = "contact")String contact);
     int updateFriendNickname(UserFriendListEntity userFriendList);
     int toggleFriendStatus(@Param(value="contact")String contact, @Param(value = "contactFriend")String contactFriend);
-    UserFriendListEntity selectFriendContactStatus(@Param(value = "contact") String contact);
+    int deleteFriend(@Param(value="contact")String contact, @Param(value = "contactFriend")String contactFriend);
+
+    UserFriendListEntity selectFriendContactStatus(@Param(value = "contact") String contact, @Param(value = "contactFriend")String contactFriend);
     int insertRecoverEmailCode(RecoverEmailCodeEntity recoverEmailCode);
     RecoverEmailCodeEntity selectRecoverEmailCodeByEmailCodeSalt(RecoverEmailCodeEntity recoverEmailCode);
     int updateRecoverEmailCode(RecoverEmailCodeEntity recoverEmailCode);

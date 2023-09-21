@@ -113,7 +113,6 @@ class SearchFriendWindow extends Component{
                                 add_friend_profile_text:responseObj.friend_profileText,
                                 add_friend_profile_nickname:responseObj.friend_nickname,
                                 add_friend_profile_img:responseObj.friend_profileMainImg,
-                                add_friend_profile_background_img:responseObj.friend_profileBackgroundImg,
                                 loading:true,
                                 search_result:'on'
                             })
@@ -160,15 +159,20 @@ class SearchFriendWindow extends Component{
                                     warning_search:'알 수 없는 이유로 실패하였습니다.'
                                 })
                                 break;
+                            case 'duplicate':
+                                this.setState({
+                                    warning_search:'이미 추가한 친구 입니다.'
+                                })
+                                break;
                             default:
                                 this.setState({
                                     add_friend_profile_text:responseObj.friend_profileText,
                                     add_friend_profile_nickname:responseObj.friend_nickname,
                                     add_friend_profile_img:responseObj.friend_profileMainImg,
-                                    add_friend_profile_background_img:responseObj.friend_profileBackgroundImg,
                                     loading:true,
                                     search_result:'on'
                                 })
+                                console.log(responseObj)
                                 this.props.getFriendList();
                                 break;
                         }
@@ -220,7 +224,7 @@ class SearchFriendWindow extends Component{
 
                 <div id="search_result" className={this.state.search_result}>
                         <span>
-                            {loading && (<img src={this.state.add_friend_profile_img} alt=""/>)}
+                            {loading && (<img src={process.env.PUBLIC_URL + this.state.add_friend_profile_img} alt=""/>)}
                         </span>
                     <span>
                             {loading && (<p>{this.state.add_friend_profile_nickname}</p>)}
